@@ -46,13 +46,33 @@
 - [x] Created `/api/deals/[id]` route (GET single deal)
 - [x] Created `/api/categories` route (GET all categories)
 
-## 🚧 In Progress
-
 ### Phase 1D: Home Page UI
-- [ ] Install shadcn/ui components (card, badge, button)
-- [ ] Create `DealCard` component
-- [ ] Create home page (`app/page.tsx`) with Top 5 per category
-- [ ] Create category page (`app/category/[slug]/page.tsx`)
+- [x] shadcn/ui components (card, badge, button) already available in starter
+- [x] Created `DealCard` component with:
+  - Price display (current + list price with strikethrough)
+  - Discount percentage badge
+  - Savings calculation
+  - Merchant name
+  - AI summary display (line-clamped)
+  - AI tags (up to 3 displayed)
+  - Vote stats display
+  - External link button
+- [x] Created home page (`app/(dynamic-pages)/(main-pages)/page.tsx`):
+  - Hero section with site description
+  - Top 5 deals per category
+  - Category headers with icons
+  - "View All" links to category pages
+  - Responsive grid layout
+  - Empty state handling
+- [x] Created category page (`app/(dynamic-pages)/(main-pages)/category/[slug]/page.tsx`):
+  - Category header with icon
+  - Deal count display
+  - All active deals for category
+  - Responsive grid layout
+  - Back to home button
+  - Empty state with CTA
+
+## 🚧 In Progress
 
 ### Phase 1E: Verification
 - [ ] Seed sample deals (3-5 per category)
@@ -97,12 +117,17 @@ deals-web/
 │   └── 0000_initial_schema.sql
 ├── src/
 │   ├── app/
+│   │   ├── (dynamic-pages)/(main-pages)/
+│   │   │   ├── page.tsx (home - Top 5 per category)
+│   │   │   └── category/[slug]/page.tsx
 │   │   └── api/
 │   │       ├── deals/
 │   │       │   ├── route.ts
 │   │       │   └── [id]/route.ts
 │   │       └── categories/
 │   │           └── route.ts
+│   ├── components/
+│   │   └── DealCard.tsx
 │   ├── db/
 │   │   ├── schema/
 │   │   │   ├── index.ts
@@ -127,14 +152,14 @@ claude-code-orchestra/
 └── .env.example
 ```
 
-## 🎯 Next Steps
+## 🎯 Next Steps (Phase 1E)
 
-1. Install shadcn/ui components
-2. Create DealCard component
-3. Build home page with Top 5 deals per category
-4. Create category detail pages
-5. Seed test data
-6. Verify build passes
+1. Set up database (Supabase or Neon)
+2. Run migrations (`pnpm db:push` or manual SQL)
+3. Seed categories (`pnpm db:seed`)
+4. Create sample deals (3-5 per category)
+5. Test home page and category pages
+6. Run `pnpm build` to verify TypeScript compilation
 
 ## 📝 Notes
 
