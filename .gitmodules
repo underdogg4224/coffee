@@ -1,0 +1,6 @@
+[submodule "deals-web"]
+	path = deals-web
+	url = https://github.com/imbhargav5/nextbase-nextjs-supabase-starter
+[submodule "claude-code-orchestra"]
+	path = claude-code-orchestra
+	url = https://github.com/0ldh/claude-code-agents-orchestra
