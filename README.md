@@ -2,6 +2,10 @@
 
 ## 📋 Executive Summary
 
+**Site:** BeanzNeez.com ☕
+**Hosting:** Hostinger
+**Status:** WordPress Setup Phase
+
 **Business Model:** Coffee deal aggregator site monetized through affiliate commissions and display advertising, with a growth strategy to secure exclusive roaster partnerships.
 
 **Similar to:** BeanDeals (but monetized from day one)
@@ -203,17 +207,17 @@ Once you reach 25k+ monthly visitors, approach roasters with:
 ## 📝 Next Actions
 
 **Right Now:**
-1. Read [BUSINESS_PLAN.md](./BUSINESS_PLAN.md) fully
-2. Choose 3 favorite domain names from [DOMAIN_IDEAS.md](./DOMAIN_IDEAS.md)
-3. Check domain availability at Namecheap
-4. Decide: Are you ready to commit $50 and 10-20 hours to launch MVP?
+1. ✅ Domain registered: **BeanzNeez.com**
+2. ✅ Hosting purchased: **Hostinger**
+3. **Next:** Install WordPress on Hostinger → See [SETUP_CHECKLIST.md](./SETUP_CHECKLIST.md)
 
-**If yes, this week:**
-5. Register domain
-6. Sign up for SiteGround hosting
-7. Install WordPress
+**This Week:**
+4. Install WordPress
+5. Configure basic settings (SSL, permalinks)
+6. Install Astra theme
+7. Install essential plugins
 8. Apply to Amazon Associates
-9. Install Astra theme
+9. Create core pages
 
 **Need help with any specific step?**
 
