@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Flavor Profile Quiz - Find Your Perfect Coffee</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>☕ Coffee Flavor Profile Matcher</h1>
+            <p class="tagline">Discover your perfect coffee match in just a few questions</p>
+        </header>
+
+        <main id="app">
+            <!-- Welcome Screen -->
+            <div id="welcome-screen" class="screen active">
+                <div class="welcome-content">
+                    <h2>Find Your Perfect Coffee</h2>
+                    <p>Answer a few quick questions about your taste preferences, brewing methods, and roast preferences to get personalized coffee recommendations.</p>
+                    <button class="btn btn-primary" onclick="startQuiz()">Start Quiz</button>
+                </div>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quiz-screen" class="screen">
+                <div class="progress-bar">
+                    <div id="progress" class="progress-fill"></div>
+                </div>
+                <div class="question-counter">
+                    Question <span id="current-question">1</span> of <span id="total-questions">5</span>
+                </div>
+
+                <div id="question-container">
+                    <h2 id="question-text"></h2>
+                    <div id="answers-container" class="answers-grid"></div>
+                </div>
+
+                <div class="quiz-navigation">
+                    <button class="btn btn-secondary" id="prev-btn" onclick="previousQuestion()" disabled>Previous</button>
+                    <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="results-screen" class="screen">
+                <div class="results-content">
+                    <h2>Your Perfect Coffee Matches</h2>
+                    <div id="results-container"></div>
+                    <button class="btn btn-secondary" onclick="restartQuiz()">Take Quiz Again</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Coffee Flavor Profile Matcher</p>
+        </footer>
+    </div>
+
+    <script src="coffee-data.js"></script>
+    <script src="quiz.js"></script>
+</body>
+</html>
