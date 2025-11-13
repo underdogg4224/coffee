@@ -1,0 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+  MODERATOR
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  name          String
+  avatar        String?
+  role          UserRole  @default(CUSTOMER)
+  emailVerified Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  orders        Order[]
+  reviews       Review[]
+  reviewVotes   ReviewVote[]
+
+  @@index([email])
+}
+
+model CoffeeProduct {
+  id          String   @id @default(cuid())
+  name        String
+  description String   @db.Text
+  price       Float
+  origin      String
+  roastLevel  String
+  weight      Int      // in grams
+  roasterName String?
+  stock       Int      @default(0)
+  slug        String   @unique
+  images      String[] // Array of image URLs
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orderItems  OrderItem[]
+  reviews     Review[]
+
+  @@index([slug])
+  @@index([featured])
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String
+  totalPrice Float
+  status     OrderStatus @default(PENDING)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items      OrderItem[]
+  reviews    Review[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+
+  order     Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   CoffeeProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Review {
+  id               String       @id @default(cuid())
+  userId           String
+  productId        String
+  orderId          String?      // Null if not verified purchase
+  rating           Int          // 1-5 stars
+  title            String
+  content          String       @db.Text
+  verifiedPurchase Boolean      @default(false)
+  status           ReviewStatus @default(PENDING)
+  helpfulCount     Int          @default(0)
+  notHelpfulCount  Int          @default(0)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product          CoffeeProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+  order            Order?        @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  photos           ReviewPhoto[]
+  votes            ReviewVote[]
+
+  @@index([userId])
+  @@index([productId])
+  @@index([status])
+  @@index([rating])
+  @@index([verifiedPurchase])
+  @@index([createdAt])
+}
+
+model ReviewPhoto {
+  id           String   @id @default(cuid())
+  reviewId     String
+  photoUrl     String
+  displayOrder Int      @default(0)
+  caption      String?
+  createdAt    DateTime @default(now())
+
+  review       Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId])
+}
+
+model ReviewVote {
+  id         String   @id @default(cuid())
+  reviewId   String
+  userId     String
+  isHelpful  Boolean  // true = helpful, false = not helpful
+  createdAt  DateTime @default(now())
+
+  review     Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([reviewId, userId]) // One vote per user per review
+  @@index([reviewId])
+  @@index([userId])
+}
